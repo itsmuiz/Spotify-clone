@@ -1,0 +1,60 @@
+.br {
+    border: 1px white dashed;
+}
+
+.rounded {
+    border-radius: 20px;
+}
+
+.invert {
+    filter: invert(1);
+}
+
+.invert-5 {
+    filter: invert(0.5);
+}
+
+.df {
+    display: flex;
+}
+
+.jcc {
+    justify-content: center;
+    align-items: center;
+}
+
+.g5 {
+    gap: 5px;
+}
+
+.g10 {
+    gap: 10px;
+}
+
+.p1 {
+    padding: 10px;
+}
+
+.p1-2 {
+    padding: 10px 20px;
+}
+
+.p0-2 {
+    padding: 0px 20px;
+}
+
+.p0-1 {
+    padding: 0px 10px;
+}
+
+.p2-1 {
+    padding: 20px 10px;
+}
+
+ul,
+li,
+a {
+    list-style: none;
+    text-decoration: none;
+    color: inherit;
+}

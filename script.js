@@ -1,6 +1,6 @@
 
 async function getSongs() {                     // async function
-    let a = await fetch('http://127.0.0.1:3000/song/'); //api request
+    let a = await fetch('../song/');            //api request
     let res = await a.text();                   // get response
 
     let div = document.createElement('div');    // create a div element
@@ -21,26 +21,57 @@ async function getSongs() {                     // async function
     return songs; // return the array
 }
 
+
+const playMusic = (track) => {
+    console.log('clicked');
+    let audio = new Audio('../song/' + track);
+    audio.play();
+}
+
 async function main() {
     let songs = await getSongs();
-    console.log(songs);
+
+    let currentSong;
+    
 
     let songUL = document.querySelector('.songList').getElementsByTagName('ul')[0];
 
     for (const song of songs) {
 
-        songUL.innerHTML = songUL.innerHTML + `<li>${song}</li>`;
+        songUL.innerHTML = songUL.innerHTML + `
+                            <li>
+                                <img class="invert" src="./music.svg" alt="icon">
+                                <span>
+                                    <p>${song.replace('.mp3','')}</p>
+                                    <p class="invert-5 txt1">MUIZ</p>
+                                </span>
+                                <img src="./play.svg" alt="icon">
+                            </li>`;
 
     }
 
-    var audio = new Audio(songs[0]);
-    audio.play();
+    // (var audio = new Audio(songs[0]);
+    // audio.play();
 
-    audio.addEventListener('loadeddata', () => {
-        let duration = audio.duration;
-        console.log(audio.duration, audio.currentSrc, audio.currentTime);
+    // audio.addEventListener('loadeddata', () => {
+    //     let duration = audio.duration;
+    //     console.log(audio.duration, audio.currentSrc, audio.currentTime);
 
-    });
+    // });)
+
+    // attach an event listener to each song 
+    Array.from(document.querySelector('.songList')
+    .getElementsByTagName('li')).forEach(e =>{
+
+        e.addEventListener('click', element => {
+
+            playMusic(e.getElementsByTagName('p')[0].innerHTML + '.mp3');
+            console.log(e.getElementsByTagName('p')[0].innerHTML);
+            
+        });
+
+    })
+
 
 }
 

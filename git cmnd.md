@@ -8,3 +8,11 @@
 <br>
 3. git push -u origin main
 
+
+> You do these steps:
+```
+git checkout -b your_branch
+git push -u origin your_branch
+```
+> show all branches (see result):
+``` git branch ```

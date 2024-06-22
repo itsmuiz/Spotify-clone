@@ -1,4 +1,6 @@
 
+let currentSong = new Audio();
+
 async function getSongs() {                     // async function
     let a = await fetch('../song/');            //api request
     let res = await a.text();                   // get response
@@ -23,15 +25,20 @@ async function getSongs() {                     // async function
 
 
 const playMusic = (track) => {
-    console.log('clicked');
-    let audio = new Audio('../song/' + track);
-    audio.play();
+
+    currentSong.src = '/song/' + track;
+    currentSong.play();
+
+    play.src = './pause.svg';
+
+    document.querySelector('.song-info').innerHTML = track.replace('.mp3', '').split('-')[0];
+    document.querySelector('.song-time').innerHTML = '00:00';
+
 }
 
 async function main() {
     let songs = await getSongs();
 
-    let currentSong;
     
 
     let songUL = document.querySelector('.songList').getElementsByTagName('ul')[0];
@@ -45,19 +52,10 @@ async function main() {
                                     <p>${song.replace('.mp3','')}</p>
                                     <p class="invert-5 txt1">MUIZ</p>
                                 </span>
-                                <img src="./play.svg" alt="icon">
+                                <img class="point" src="./play.svg" alt="icon">
                             </li>`;
 
     }
-
-    // (var audio = new Audio(songs[0]);
-    // audio.play();
-
-    // audio.addEventListener('loadeddata', () => {
-    //     let duration = audio.duration;
-    //     console.log(audio.duration, audio.currentSrc, audio.currentTime);
-
-    // });)
 
     // attach an event listener to each song 
     Array.from(document.querySelector('.songList')
@@ -69,7 +67,43 @@ async function main() {
             console.log(e.getElementsByTagName('p')[0].innerHTML);
             
         });
+    });
 
+    //attach event listeners
+
+    play.addEventListener('click', ()=> {
+        if (currentSong.paused) {
+            currentSong.play();
+            play.src = './pause.svg';
+        } else {
+            play.src = './on.svg';
+            currentSong.pause();
+        }
+    });
+
+    // Listen for timeupdate events
+
+    currentSong.addEventListener('timeupdate', () => {
+        // console.log(currentSong.duration, currentSong.currentTime);
+        let duration = currentSong.duration;
+        let currentTime = currentSong.currentTime;
+        let minutes = Math.floor(duration / 60);
+        let seconds = Math.floor(duration % 60);
+        let minutes2 = Math.floor(currentTime / 60);
+        let seconds2 = Math.floor(currentTime % 60);
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        if (seconds2 < 10) {
+            seconds2 = '0' + seconds2;
+        }   
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        if (minutes2 < 10) {
+            minutes2 = '0' + minutes2;
+        }
+        document.querySelector('.song-time').innerHTML = `${minutes2}:${seconds2} / ${minutes}:${seconds}`;
     })
 
 

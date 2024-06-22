@@ -353,7 +353,6 @@ nav .btns button {
 
 .songList ul li:hover {
     background-color: var(--bg0-6);
-    cursor: pointer;
 }
 
 .songList ul li span{

@@ -1,6 +1,6 @@
 
 async function getSongs() {                     // async function
-    let a = await fetch('http://127.0.0.1:3000/song/'); //api request
+ let a = await fetch('../song/'); //api request
     let res = await a.text();                   // get response
 
     let div = document.createElement('div');    // create a div element

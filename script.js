@@ -83,13 +83,17 @@ async function main() {
     // Listen for timeupdate events
 
     currentSong.addEventListener('timeupdate', () => {
-        // console.log(currentSong.duration, currentSong.currentTime);
         let duration = currentSong.duration;
         let currentTime = currentSong.currentTime;
         let minutes = Math.floor(duration / 60);
         let seconds = Math.floor(duration % 60);
         let minutes2 = Math.floor(currentTime / 60);
         let seconds2 = Math.floor(currentTime % 60);
+
+        if (isNaN(seconds) || seconds < 0) {
+            return '00:00';
+        }
+
         if (seconds < 10) {
             seconds = '0' + seconds;
         }
@@ -104,14 +108,14 @@ async function main() {
         }
         document.querySelector('.song-time').innerHTML = `${minutes2}:${seconds2} / ${minutes}:${seconds}`;
         document.querySelector('.ball').style.left =
-        (currentSong.currentTime / currentSong.duration) * 100 + '%' ;
+            (currentSong.currentTime / currentSong.duration) * 100 + '%';
     });
 
     // Listen for click events on the progress bar
 
     document.querySelector('.seekbar').addEventListener('click', e => {
-        document.querySelector('.ball').style.left = 
-        (e.offsetX / (e.target.getBoundingClientRect().width) * 100 + "%" );
+        document.querySelector('.ball').style.left =
+            (e.offsetX / (e.target.getBoundingClientRect().width) * 100 + "%");
         currentSong.currentTime = (e.offsetX / (e.target.getBoundingClientRect().width) * currentSong.duration);
     });
 
@@ -142,6 +146,11 @@ async function main() {
             playMusic(songs[currentIndex + 1]);
         }
     });
+
+    document.querySelector('.range').getElementsByTagName('input')[0]
+    .addEventListener('change', (e) => {
+        currentSong.volume = parseInt(e.target.value) / 100;
+    })
 
 }
 

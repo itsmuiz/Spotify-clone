@@ -126,15 +126,21 @@ async function main() {
     });
 
     // previous
-    previous.addEventListener('click', () =>{
-        console.log('previous click');
+    previous.addEventListener('click', () => {
+        let currentTrack = currentSong.src.split('/song/')[1].replaceAll('%20', ' ');
+        let currentIndex = songs.indexOf(currentTrack);
+        if (currentIndex > 0) {
+            playMusic(songs[currentIndex - 1]);
+        }
     });
 
     // next
-    next.addEventListener('click', () =>{
-        console.log('next click');
-        let index = songs.indexOf(currentSong.src.split('/').slice(-1)[0])
-        console.log( index);
+    next.addEventListener('click', () => {
+        let currentTrack = currentSong.src.split('/song/')[1].replaceAll('%20', ' ');
+        let currentIndex = songs.indexOf(currentTrack);
+        if (currentIndex < songs.length - 1) {
+            playMusic(songs[currentIndex + 1]);
+        }
     });
 
 }

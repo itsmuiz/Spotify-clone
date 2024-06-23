@@ -115,6 +115,16 @@ async function main() {
         currentSong.currentTime = (e.offsetX / (e.target.getBoundingClientRect().width) * currentSong.duration);
     });
 
+    // listen for changes hamburger
+    document.querySelector('.ham').addEventListener('click', () => {
+        document.querySelector('.left').style.left = '0%';
+    });
+
+    // event listner for close
+    document.querySelector('.close').addEventListener('click', () => {
+        document.querySelector('.left').style.left = '-100%';
+    });
+
 }
 
 main();

@@ -23,12 +23,20 @@
     align-items: center;
 }
 
+.sb{
+    justify-content: space-between;
+}
+
 .g5 {
     gap: 5px;
 }
 
 .g10 {
     gap: 10px;
+}
+
+.m1{
+    margin: 10px;
 }
 
 .p1 {

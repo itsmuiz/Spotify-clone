@@ -1,5 +1,6 @@
 
 let currentSong = new Audio();
+let songs;
 
 async function getSongs() {                     // async function
     let a = await fetch('../song/');            //api request
@@ -37,8 +38,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function main() {
-    let songs = await getSongs();
-
+    songs = await getSongs();
     playMusic(songs[0], true);
 
     let songUL = document.querySelector('.songList').getElementsByTagName('ul')[0];
@@ -123,6 +123,18 @@ async function main() {
     // event listner for close
     document.querySelector('.close').addEventListener('click', () => {
         document.querySelector('.left').style.left = '-100%';
+    });
+
+    // previous
+    previous.addEventListener('click', () =>{
+        console.log('previous click');
+    });
+
+    // next
+    next.addEventListener('click', () =>{
+        console.log('next click');
+        let index = songs.indexOf(currentSong.src.split('/').slice(-1)[0])
+        console.log( index);
     });
 
 }
